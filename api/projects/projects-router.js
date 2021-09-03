@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-    const {id} = req.params
+    const { id } = req.params
     Projects.get(id)
         .then(byId => {
             if (!byId) {
@@ -36,7 +36,7 @@ router.post('/', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-    const {id} = req.params
+    const { id } = req.params
     Projects.update(id, req.body)
         .then(changes => {
             if (!id) {
@@ -52,7 +52,7 @@ router.put('/:id', (req, res) => {
 
 // I always struggle with delete 
 router.delete('/:id', (req, res) => {
-    const {id} = req.params
+    const { id } = req.params
     Projects.get(id)
         .then(toDelete => {
             if (!id) {
@@ -73,7 +73,7 @@ router.delete('/:id', (req, res) => {
 })
 
 router.get('/:id/actions', (req, res) => {
-    const {id} = req.params
+    const { id } = req.params
     Projects.getProjectActions(id)
         .then(actions => {
             res.status(200).json(actions)
