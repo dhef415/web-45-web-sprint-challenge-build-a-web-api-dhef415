@@ -36,7 +36,7 @@ router.post('/', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-    const {id,} = req.params
+    const {id} = req.params
     Projects.update(id, req.body)
         .then(changes => {
             if (!id) {
@@ -56,7 +56,7 @@ router.delete('/:id', (req, res) => {
     Projects.get(id)
         .then(toDelete => {
             if (!id) {
-                res.status(404).json({message: 'no project with given id'})
+                res.status(404).json({message: 'no project with given id'})// Unsure why this wont work
             } else {
                 Projects.remove(id)
                     .then(
@@ -68,8 +68,17 @@ router.delete('/:id', (req, res) => {
             }
         })
         .catch(() => {
-            res.status(404).json({message: 'no'})
+            res.status(404).json({message: 'no'}) // Unsure why this wont work
         })
 })
 
-module.exports = router;
+router.get('/:id/actions', (req, res) => {
+    const {id} = req.params
+    Projects.getProjectActions(id)
+        .then(actions => {
+            res.status(200).json(actions)
+        })
+        .catch(res.status(404))
+})
+
+module.exports = router
